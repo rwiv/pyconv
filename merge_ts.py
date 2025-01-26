@@ -67,8 +67,6 @@ def merge_all(target_path: str, out_dirpath: str, tmp_dirpath: str):
 
         if len(os.listdir(tmp_path)) == 0:
             os.rmdir(tmp_path)
-        if len(os.listdir(tmp_dirpath)) == 0:
-            os.rmdir(tmp_dirpath)
 
         end_time = time.time()
         print(f"{src_path}: {end_time - start_time} seconds")
