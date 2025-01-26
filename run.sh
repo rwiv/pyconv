@@ -1,3 +1,4 @@
 #!/bin/sh
 
-docker compose up -d
+sudo docker compose rm
+sudo docker compose up -d
