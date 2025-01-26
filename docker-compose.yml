@@ -1,0 +1,10 @@
+services:
+  convscript:
+    image: ghcr.io/rwiv/dockerpy:0.1.0
+    container_name: convscript
+    working_dir: /app
+    entrypoint: python3 merge_ts.py
+    volumes:
+      - ./target:/app/target
+      - ./out:/app/out
+      - ./merge_ts.py:/app/merge_ts.py

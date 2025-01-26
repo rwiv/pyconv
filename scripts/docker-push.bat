@@ -1,7 +1,7 @@
 cd ..
 set IMG1=dockerpy:0.1.0
 set IMG2=ghcr.io/rwiv/dockerpy:0.1.0
-set DOCKERFILE=./docker/Dockerfile
+set DOCKERFILE=./Dockerfile
 
 docker rmi %IMG1%
 docker rmi %IMG2%
