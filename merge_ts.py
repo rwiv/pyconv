@@ -35,6 +35,7 @@ def convert_one(target_path: str, out_path: str):
 
 
 def merge_channel(target_path: str, out_dirpath: str):
+    result = []
     for dirname in os.listdir(target_path):
         src_path = os.path.join(target_path, dirname)
         ts_path = os.path.join(out_dirpath, f"{dirname}.ts")
@@ -42,7 +43,8 @@ def merge_channel(target_path: str, out_dirpath: str):
         merge_one(src_path, ts_path)
         convert_one(ts_path, mp4_path)
         os.remove(ts_path)
-        return mp4_path
+        result.append(mp4_path)
+    return result
 
 
 def merge_all(target_path: str, out_dirpath: str, tmp_dirpath: str):
@@ -59,17 +61,18 @@ def merge_all(target_path: str, out_dirpath: str, tmp_dirpath: str):
             raise Exception("too big file")
 
         os.makedirs(tmp_path, exist_ok=True)
-        tmp_mp4_path = merge_channel(src_path, tmp_path)
 
         os.makedirs(os.path.join(out_dirpath, dirname), exist_ok=True)
-        out_mp4_path = os.path.join(out_dirpath, dirname, os.path.basename(tmp_mp4_path))
-        shutil.move(tmp_mp4_path, out_mp4_path)
+        tmp_mp4_paths = merge_channel(src_path, tmp_path)
+        for tmp_mp4_path in tmp_mp4_paths:
+            out_mp4_path = os.path.join(out_dirpath, dirname, os.path.basename(tmp_mp4_path))
+            shutil.move(tmp_mp4_path, out_mp4_path)
 
-        if len(os.listdir(tmp_path)) == 0:
-            os.rmdir(tmp_path)
+            if len(os.listdir(tmp_path)) == 0:
+                os.rmdir(tmp_path)
 
-        end_time = time.time()
-        print(f"{src_path}: {end_time - start_time} seconds")
+            end_time = time.time()
+            print(f"{src_path}: {end_time - start_time} seconds")
 
 
 target_path = "target"
