@@ -72,7 +72,7 @@ def merge_all(target_path: str, out_dirpath: str, tmp_dirpath: str):
                 os.rmdir(tmp_path)
 
             end_time = time.time()
-            print(f"{src_path}: {end_time - start_time} seconds")
+            print(f"{out_mp4_path}: {end_time - start_time} seconds")
 
 
 target_path = "target"
